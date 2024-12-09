@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Checker Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('/static/b.jpeg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: black; /* Changed to black for better readability */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between; /* Space between logo and links */
+            background-color: rgba(0, 123, 255, 0.8); /* Adjusted opacity */
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+        }
+
+        .navbar-brand {
+            color: white; /* Color for the brand text */
+            font-size: 24px; /* Larger text for the brand */
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center; /* Align links vertically */
+        }
+
+        .navbar-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            background-color: rgba(0, 56, 100, 0.9); /* Slightly darker blue on hover */
+        }
+
+        .about-dropdown {
+            display: none; /* Initially hidden */
+            position: absolute; /* Dropdown positioning */
+            background-color: white; /* Background for the dropdown */
+            border: 1px solid #ccc; /* Border for dropdown */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for dropdown */
+            padding: 15px; /* Padding inside dropdown */
+            border-radius: 5px; /* Rounded corners */
+            z-index: 1000; /* On top of other elements */
+            margin-top: 10px; /* Spacing from the navbar */
+            width: 300px; /* Fixed width for the dropdown */
+        }
+
+        .container {
+            display: flex; /* Flex layout for sidebar and main content */
+            max-width: 1200px; /* Maximum width for better layout */
+            margin: 50px auto; /* Centered with top margin */
+            padding: 20px; /* Added padding */
+            background-color: transparent; /* Set background to transparent */
+        }
+
+        .sidebar {
+            flex: 1; /* Take 1 part of the flex space */
+            background-color: rgba(240, 240, 240, 0.9); /* Light gray for sidebar */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            margin-right: 20px; /* Space between sidebar and main content */
+        }
+
+        .tips {
+            margin-bottom: 20px; /* Spacing for tips section */
+        }
+
+        .main-content {
+            flex: 3; /* Take 3 parts of the flex space */
+            padding: 20px; /* Padding for the main content */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for a clean look */
+        }
+
+        h2 {
+            color: #007bff; /* Blue color for headings */
+            border-bottom: 2px solid #007bff; /* Underline effect */
+            padding-bottom: 10px; /* Space between heading and content */
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Increased margin for better spacing */
+        }
+
+        textarea, input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px; /* Space below inputs */
+            border-radius: 5px; /* Rounded corners */
+            border: 1px solid #ccc; /* Light gray border */
+            box-sizing: border-box; /* Include padding in width */
+            transition: border-color 0.3s ease; /* Transition effect for border color */
+        }
+
+        textarea:focus, input[type="file"]:focus, input[type="text"]:focus {
+            border-color: #007bff; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        .button-container {
+            text-align: center; /* Center the button */
+            margin-top: 20px; /* Space above the button */
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #007bff, #0056b3); /* Gradient from blue to darker blue */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease; /* Smooth transition for background change */
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #0056b3, #003f7f); /* Darker gradient on hover */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack sidebar and main content */
+            }
+            .sidebar {
+                margin-right: 0; /* Remove right margin */
+                margin-bottom: 20px; /* Add bottom margin */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">Welcome to Resume Checker!</div>
+        <div class="navbar-links">
+            <a href="#" id="aboutUsLink" class="btn">About Us</a>
+            <a href="{{ url_for('interview_bot') }}" class="btn">Practice Interview</a>
+            <a href="{{ url_for('chat_with_bot') }}" class="btn">Chat with Bot</a>
+            <a href="{{ url_for('cfg') }}" class="btn">Context-Free Grammar</a>
+            <a href="{{ url_for('semantic_analysis') }}" class="btn">Semantic Analysis</a>
+        </div>
+    </div>
+
+    <div id="aboutUsDropdown" class="about-dropdown">
+        <p>Resume Checker is a powerful tool designed to help job seekers enhance their resumes and prepare for interviews. Our application uses advanced algorithms to analyze your resume, provide feedback, and suggest improvements. With features for practicing interviews and semantic analysis, we aim to boost your confidence and increase your chances of landing your dream job!</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Tips for a Great Resume</h2>
+            <div class="tips">
+                <ul>
+                    <li>Keep it concise: Limit your resume to one page if possible.</li>
+                    <li>Tailor your resume: Customize your resume for each job application.</li>
+                    <li>Use bullet points: Make your resume easy to read with bullet points.</li>
+                    <li>Highlight achievements: Focus on accomplishments rather than just responsibilities.</li>
+                    <li>Proofread: Ensure there are no grammatical or spelling errors.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+            <h2>Upload Your Resume</h2>
+            <p>Upload your resume below and let us analyze it for improvements!</p>
+            <form action="{{ url_for('analyze_resume') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="job_description">Job Description:</label>
+                    <textarea name="job_description" id="job_description" rows="3" placeholder="Enter the job description here..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="resume">Resume (TXT, PDF, DOCX):</label>
+                    <input type="file" name="resume" id="resume" accept=".txt,.pdf,.docx" required>
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="btn">Analyze Resume</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle dropdown visibility
+        document.getElementById('aboutUsLink').onclick = function() {
+            var dropdown = document.getElementById('aboutUsDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        };
+    </script>
+</body>
+</html>

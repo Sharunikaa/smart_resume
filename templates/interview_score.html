@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Interview Score</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Total Score: <span class="score">{{ total_score | round(2) }}%</span></h1>
+        <h2 class="review">{{ review }}</h2>
+        <div class="button-container">
+            <a href="{{ url_for('home') }}" class="btn">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Interview</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Practice Interview</h1>
+
+        <!-- Display current score -->
+        <p class="current-score">Current Score: {{ score | round(2) }}%</p>
+
+        {% if question_index < total_questions %}
+            <h2 class="question">{{ question }}</h2>
+            <form method="POST" class="answer-form">
+                <textarea name="answer" required placeholder="Type your answer here..." class="answer-input"></textarea>
+                <input type="hidden" name="question_index" value="{{ question_index }}">
+                <button type="submit" class="submit-button">Submit Answer</button>
+            </form>
+        {% else %}
+            <h2 class="interview-complete">Interview Complete</h2>
+            <h3 class="total-score">Your Total Score: {{ total_score | round(2) }}%</h3>
+            <p class="review">{{ review }}</p>
+        {% endif %}
+
+        <br>
+        <a href="{{ url_for('home') }}" class="bac

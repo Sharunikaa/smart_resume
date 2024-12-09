@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Bot</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Chat with interview bot!</h1>
+        <div class="chat-box" id="chat-box">
+            {% if user_input %}
+            <p><strong>You:</strong> {{ user_input }}</p>
+            <p><strong>Bot:</strong> {{ bot_response }}</p>
+            {% else %}
+            <p>Start chatting with the bot!</p>
+            {% endif %}
+        </div>
+        <form method="POST" class="chat-input">
+            <input type="text" name="user_input" placeholder="Type a message..." required>
+            <center><button type="submit" class="btn">Send</button></center>
+        </form>
+        <br><br><center><a href="{{ url_for('home') }}" class="back-button">Back to Dashboard</a></center>
+    </div>
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    </script>
+</body>
+</html>

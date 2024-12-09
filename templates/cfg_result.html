@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFG Parse Result</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #555;
+        }
+        pre {
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        .button-container, .hyperlinks {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CFG Parse Result</h1>
+        <p>Input sentence: <strong>{{ input_text }}</strong></p>
+        <h2>Parse Trees:</h2>
+        <ul>
+            {% for tree in tree_texts %}
+            <li><pre>{{ tree }}</pre></li>
+            {% else %}
+            <li>No parse trees found.</li>
+            {% endfor %}
+        </ul>
+        <div class="button-container">
+            <a href="/cfg" class="btn">Parse another sentence</a>
+        </div>
+        <br>
+        <div class="hyperlinks">
+            <a href="{{ url_for('home') }}" class="btn">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
